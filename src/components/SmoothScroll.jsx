@@ -14,11 +14,14 @@ export const useLenis = () => useContext(SmoothScrollContext);
  */
 const SmoothScroll = ({ children }) => {
   const lenisRef = useRef(null);
-  const [reducedMotion, setReducedMotion] = useState(false);
+  const [reducedMotion, setReducedMotion] = useState(
+    () =>
+      typeof window !== 'undefined' &&
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches,
+  );
 
   useEffect(() => {
     const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
-    setReducedMotion(mq.matches);
 
     const startLenis = () => {
       if (lenisRef.current || mq.matches) return;

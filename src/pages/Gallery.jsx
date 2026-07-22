@@ -1,26 +1,37 @@
 import { useMemo, useState } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import GalleryTile from '../components/GalleryTile';
 import {
   ALL_GALLERY_PHOTOS,
   GALLERY_FILTERS,
   CATEGORY_COUNTS,
 } from '../data/galleryPhotos';
+import {
+  getMasonryTileClass,
+  interleaveGalleryPhotos,
+} from '../utils/galleryLayout';
 import { sectionReveal } from '../utils/motion';
 
 const Gallery = () => {
   const [filter, setFilter] = useState('ALL');
 
   const photos = useMemo(() => {
-    if (filter === 'ALL') return ALL_GALLERY_PHOTOS;
-    return ALL_GALLERY_PHOTOS.filter((p) => p.category === filter);
+    const list =
+      filter === 'ALL'
+        ? interleaveGalleryPhotos(ALL_GALLERY_PHOTOS)
+        : ALL_GALLERY_PHOTOS.filter((p) => p.category === filter);
+
+    return list.map((photo, index) => ({
+      photo,
+      layoutClass: getMasonryTileClass(index),
+    }));
   }, [filter]);
 
   const totalCount = ALL_GALLERY_PHOTOS.length;
 
   return (
     <main className="page">
-      <section className="section bg-charcoal">
+      <section className="section bg-charcoal gallery-section">
         <div className="section-inner">
           <motion.div className="section-centered" {...sectionReveal}>
             <h1 className="h1" style={{ fontSize: 'clamp(2rem, 5vw, 3rem)' }}>
@@ -60,11 +71,26 @@ const Gallery = () => {
             ))}
           </motion.div>
 
-          <div className="masonry masonry--photos">
-            {photos.map((photo) => (
-              <GalleryTile key={photo.id} photo={photo} lazy />
-            ))}
-          </div>
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={filter}
+              className="masonry masonry--photos"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.35 }}
+            >
+              {photos.map(({ photo, layoutClass }, index) => (
+                <GalleryTile
+                  key={photo.id}
+                  photo={photo}
+                  lazy
+                  className={layoutClass}
+                  style={{ '--tile-index': index }}
+                />
+              ))}
+            </motion.div>
+          </AnimatePresence>
         </div>
       </section>
     </main>

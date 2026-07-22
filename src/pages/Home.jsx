@@ -5,7 +5,9 @@ import GalleryTile from '../components/GalleryTile';
 import HeroSlider from '../components/HeroSlider';
 import { SITE } from '../config/site';
 import { HOME_GALLERY_PREVIEW, photoSrc } from '../data/galleryPhotos';
+import { getHomeGallerySlotClass } from '../utils/galleryLayout';
 import { heroStagger, heroItem, sectionReveal, staggerContainer, staggerChild } from '../utils/motion';
+import { RESERVATION_PROMPT, whatsappUrl } from '../utils/whatsapp';
 
 const PILLARS = [
   {
@@ -23,8 +25,10 @@ const PILLARS = [
 ];
 
 const HIGHLIGHTS = [
-  { name: 'Happy Hour Specials', time: 'Daily | 4 PM – 7 PM' },
+  { name: 'Happy Hour Specials', time: 'Daily | 11 AM – 7 PM' },
   { name: 'Weekend Lounge Sessions', time: 'Fri – Sun | All evening' },
+  { name: 'Ladies Night', time: 'Every Wednesday' },
+  { name: 'Lunch Combo Offers', time: 'Daily | During Lunch' },
 ];
 
 const Home = () => {
@@ -37,7 +41,12 @@ const Home = () => {
     {/* Hero — no top padding; full viewport */}
     <section ref={heroRef} className="hero">
       <HeroSlider heroRef={heroRef} />
-      <motion.div className="hero__content" {...heroStagger}>
+      <motion.div
+        className="hero__content"
+        initial={false}
+        animate="visible"
+        variants={heroStagger.variants}
+      >
         <motion.p className="label-gold label-with-lines" variants={heroItem}>
           Al Karama, Dubai
         </motion.p>
@@ -52,16 +61,33 @@ const Home = () => {
         </motion.p>
         <motion.div className="hero__ctas" variants={heroItem}>
           <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.96 }}>
-            <Link to="/contact" className="btn btn-gold">
+            <a
+              href={whatsappUrl(RESERVATION_PROMPT)}
+              className="btn btn-gold"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               Reserve Your Table
-            </Link>
+            </a>
           </motion.div>
           <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.96 }}>
             <a
               href={SITE.menuUrl}
               className="btn btn-outline"
+              target="_blank"
+              rel="noopener noreferrer"
             >
               Explore Menu
+            </a>
+          </motion.div>
+          <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.96 }}>
+            <a
+              href={SITE.social.instagram}
+              className="btn btn-outline"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Follow Us
             </a>
           </motion.div>
         </motion.div>
@@ -187,7 +213,7 @@ const Home = () => {
               key={photo.id}
               photo={photo}
               lazy
-              className={i === 0 || i === 5 ? 'home-gallery__feature' : ''}
+              className={getHomeGallerySlotClass(i)}
               style={{ '--tile-index': i }}
             />
           ))}
@@ -211,9 +237,14 @@ const Home = () => {
       <motion.div className="section-inner" {...sectionReveal}>
         <h2>Reserve Your Table Tonight</h2>
         <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.96 }}>
-          <Link to="/contact" className="btn btn-gold btn-shimmer">
+          <a
+            href={whatsappUrl(RESERVATION_PROMPT)}
+            className="btn btn-gold btn-shimmer"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             Book Now
-          </Link>
+          </a>
         </motion.div>
       </motion.div>
     </section>

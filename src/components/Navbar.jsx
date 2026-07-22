@@ -1,10 +1,9 @@
 import { useState, useEffect } from 'react';
 import { NavLink, Link } from 'react-router-dom';
 import { NAV_LINKS } from '../config/navigation';
+import { SITE } from '../config/site';
 import { useLenis } from './SmoothScroll';
-
-const PHONE = '+971 56 671 1730';
-const PHONE_HREF = 'tel:+971566711730';
+import { RESERVATION_PROMPT, whatsappUrl } from '../utils/whatsapp';
 
 const NavItem = ({ link, onClick }) => {
   if (link.external) {
@@ -46,13 +45,14 @@ const Navbar = () => {
 
   useEffect(() => {
     document.body.style.overflow = drawerOpen ? 'hidden' : '';
-    if (lenis?.current) {
-      if (drawerOpen) lenis.current.stop();
-      else lenis.current.start();
+    const lenisInstance = lenis?.current;
+    if (lenisInstance) {
+      if (drawerOpen) lenisInstance.stop();
+      else lenisInstance.start();
     }
     return () => {
       document.body.style.overflow = '';
-      lenis?.current?.start();
+      lenisInstance?.start();
     };
   }, [drawerOpen, lenis]);
 
@@ -63,7 +63,12 @@ const Navbar = () => {
       <header className={`navbar ${scrolled ? 'navbar--scrolled' : ''}`}>
         <div className="navbar__inner">
           <Link to="/" className="navbar__logo" onClick={closeDrawer}>
-            <img src="/Dr_Sheesha_Dubai_Logo.png" alt="Dr. Sheesha Dubai" />
+            <img
+              src="/Dr_Sheesha_Dubai_Logo.png"
+              alt="Dr. Sheesha Dubai"
+              width="120"
+              height="48"
+            />
           </Link>
 
           <ul className="navbar__links">
@@ -85,11 +90,21 @@ const Navbar = () => {
           </ul>
 
           <div className="navbar__actions">
-            <Link to="/contact" className="btn btn-outline navbar__reserve">
+            <a
+              href={whatsappUrl(RESERVATION_PROMPT)}
+              className="btn btn-outline navbar__reserve"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               Reserve
-            </Link>
-            <a href={PHONE_HREF} className="navbar__phone">
-              {PHONE}
+            </a>
+            <a
+              href={SITE.whatsapp}
+              className="navbar__phone"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {SITE.phone}
             </a>
           </div>
 
@@ -121,11 +136,23 @@ const Navbar = () => {
         {NAV_LINKS.map((link) => (
           <NavItem key={link.label} link={link} onClick={closeDrawer} />
         ))}
-        <Link to="/contact" className="btn btn-outline" onClick={closeDrawer}>
+        <a
+          href={whatsappUrl(RESERVATION_PROMPT)}
+          className="btn btn-outline"
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={closeDrawer}
+        >
           Reserve
-        </Link>
-        <a href={PHONE_HREF} className="navbar__phone" onClick={closeDrawer}>
-          {PHONE}
+        </a>
+        <a
+          href={SITE.whatsapp}
+          className="navbar__phone"
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={closeDrawer}
+        >
+          {SITE.phone}
         </a>
       </div>
     </>

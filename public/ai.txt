@@ -3,8 +3,16 @@
 
 site: https://drsheesha.com
 name: Dr. Sheesha Dubai
-type: premium flavours lounge
-location: Al Karama, Dubai, UAE
+type: premium shisha lounge
+location: 112 Za'abeel St, Al Karama, Dubai, UAE
+coordinates: 25.2481, 55.3066
 phone: +971 56 671 1730
+whatsapp: https://wa.me/971566711730
+email: info@drsheesha.com
 hours: daily 12:00-06:00
+menu: https://qr.mydigimenu.com/c2764751-64d6-4175-9d56-2d3b67d239d4
+instagram: https://www.instagram.com/drs.dxb
+snapchat: https://snapchat.com/t/RV32za0P
+tiktok: https://www.tiktok.com/@storiesloungedxb
+facebook: https://www.facebook.com/drs.dxb
 sitemap: https://drsheesha.com/sitemap.xml

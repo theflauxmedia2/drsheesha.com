@@ -32,7 +32,7 @@ export const buildPhoto = (category, index) => ({
   src: photoSrc(category, index),
   category,
   label: CATEGORY_LABELS[category],
-  alt: `${CATEGORY_LABELS[category]} at Dr. Sheesha`,
+  alt: `${CATEGORY_LABELS[category]} at Dr. Sheesha shisha lounge, Al Karama Dubai`,
 });
 
 export const buildCategoryPhotos = (category) =>

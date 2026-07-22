@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { photoSrc } from '../data/galleryPhotos';
 import { sectionReveal, staggerContainer, staggerChild } from '../utils/motion';
+import { eventEnquiryMessage, openWhatsApp } from '../utils/whatsapp';
 
 const EVENT_TILES = [
   {
@@ -26,7 +27,6 @@ const EVENT_TYPES = [
 ];
 
 const Events = () => {
-  const [submitted, setSubmitted] = useState(false);
   const [form, setForm] = useState({
     name: '',
     contact: '',
@@ -43,7 +43,7 @@ const Events = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setSubmitted(true);
+    openWhatsApp(eventEnquiryMessage(form));
   };
 
   return (
@@ -101,96 +101,89 @@ const Events = () => {
               with customized menus and personalized service.
             </p>
 
-            {submitted ? (
-              <p className="form-success">
-                Thank you. Your enquiry has been received — our team will contact
-                you shortly with details.
-              </p>
-            ) : (
-              <form className="form-grid" onSubmit={handleSubmit}>
-                <div className="form-grid form-grid--two">
-                  <div className="form-group">
-                    <label htmlFor="event-name">Name</label>
-                    <input
-                      id="event-name"
-                      name="name"
-                      type="text"
-                      required
-                      value={form.name}
-                      onChange={handleChange}
-                    />
-                  </div>
-                  <div className="form-group">
-                    <label htmlFor="event-contact">Phone / Email</label>
-                    <input
-                      id="event-contact"
-                      name="contact"
-                      type="text"
-                      required
-                      value={form.contact}
-                      onChange={handleChange}
-                    />
-                  </div>
-                </div>
-                <div className="form-grid form-grid--two">
-                  <div className="form-group">
-                    <label htmlFor="event-type">Event Type</label>
-                    <select
-                      id="event-type"
-                      name="eventType"
-                      value={form.eventType}
-                      onChange={handleChange}
-                    >
-                      {EVENT_TYPES.map((type) => (
-                        <option key={type} value={type}>
-                          {type}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-                  <div className="form-group">
-                    <label htmlFor="event-date">Date</label>
-                    <input
-                      id="event-date"
-                      name="date"
-                      type="date"
-                      required
-                      value={form.date}
-                      onChange={handleChange}
-                    />
-                  </div>
-                </div>
+            <form className="form-grid" onSubmit={handleSubmit}>
+              <div className="form-grid form-grid--two">
                 <div className="form-group">
-                  <label htmlFor="event-guests">Number of Guests</label>
+                  <label htmlFor="event-name">Name</label>
                   <input
-                    id="event-guests"
-                    name="guests"
-                    type="number"
-                    min="1"
+                    id="event-name"
+                    name="name"
+                    type="text"
                     required
-                    value={form.guests}
+                    value={form.name}
                     onChange={handleChange}
                   />
                 </div>
                 <div className="form-group">
-                  <label htmlFor="event-message">Message</label>
-                  <textarea
-                    id="event-message"
-                    name="message"
-                    value={form.message}
+                  <label htmlFor="event-contact">Phone / Email</label>
+                  <input
+                    id="event-contact"
+                    name="contact"
+                    type="text"
+                    required
+                    value={form.contact}
                     onChange={handleChange}
                   />
                 </div>
-                <motion.button
-                  type="submit"
-                  className="btn btn-gold"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.96 }}
-                >
-                  Request Details
-                </motion.button>
-              </form>
-            )}
+              </div>
+              <div className="form-grid form-grid--two">
+                <div className="form-group">
+                  <label htmlFor="event-type">Event Type</label>
+                  <select
+                    id="event-type"
+                    name="eventType"
+                    value={form.eventType}
+                    onChange={handleChange}
+                  >
+                    {EVENT_TYPES.map((type) => (
+                      <option key={type} value={type}>
+                        {type}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <div className="form-group">
+                  <label htmlFor="event-date">Date</label>
+                  <input
+                    id="event-date"
+                    name="date"
+                    type="date"
+                    required
+                    value={form.date}
+                    onChange={handleChange}
+                  />
+                </div>
+              </div>
+              <div className="form-group">
+                <label htmlFor="event-guests">Number of Guests</label>
+                <input
+                  id="event-guests"
+                  name="guests"
+                  type="number"
+                  min="1"
+                  required
+                  value={form.guests}
+                  onChange={handleChange}
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="event-message">Message</label>
+                <textarea
+                  id="event-message"
+                  name="message"
+                  value={form.message}
+                  onChange={handleChange}
+                />
+              </div>
+              <motion.button
+                type="submit"
+                className="btn btn-gold"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.96 }}
+              >
+                Send via WhatsApp
+              </motion.button>
+            </form>
           </motion.div>
         </div>
       </section>

@@ -55,7 +55,9 @@ const SEO = () => {
     setMeta('og:description', description, 'property');
     setMeta('og:url', canonical, 'property');
     setMeta('og:image', ogImage, 'property');
-    setMeta('og:image:alt', `${SITE.name} — premium flavours lounge, Dubai`, 'property');
+    setMeta('og:image:width', '1200', 'property');
+    setMeta('og:image:height', '630', 'property');
+    setMeta('og:image:alt', `${SITE.name} — premium shisha lounge in Al Karama, Dubai`, 'property');
     setMeta('og:locale', SITE.locale, 'property');
 
     setMeta('twitter:card', 'summary_large_image');
@@ -63,6 +65,7 @@ const SEO = () => {
     setMeta('twitter:title', title);
     setMeta('twitter:description', description);
     setMeta('twitter:image', ogImage);
+    setMeta('twitter:image:alt', `${SITE.name} — premium shisha lounge in Al Karama, Dubai`);
 
     setMeta('geo.region', 'AE-DU');
     setMeta('geo.placename', 'Dubai');

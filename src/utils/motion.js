@@ -49,8 +49,6 @@ export const premiumStagger = {
 };
 
 export const heroStagger = {
-  initial: 'hidden',
-  animate: 'visible',
   variants: {
     hidden: {},
     visible: { transition: { staggerChildren: 0.12 } },

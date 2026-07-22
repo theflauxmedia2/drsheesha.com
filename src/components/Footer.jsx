@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { NAV_LINKS } from '../config/navigation';
 import { SITE } from '../config/site';
 import SocialLinks from './SocialLinks';
+import { RESERVATION_PROMPT, whatsappUrl } from '../utils/whatsapp';
 
 const FooterNavLink = ({ link }) => {
   if (link.external) {
@@ -28,13 +29,23 @@ const Footer = () => {
           {/* Brand */}
           <div className="footer__brand">
             <Link to="/" className="footer__logo">
-              <img src="/Dr_Sheesha_Dubai_Logo.png" alt="Dr. Sheesha Dubai" />
+              <img
+                src="/Dr_Sheesha_Dubai_Logo.png"
+                alt="Dr. Sheesha Dubai"
+                width="120"
+                height="48"
+              />
             </Link>
             <p className="footer__tagline">Where every session tells a story.</p>
             <p className="footer__sub">{SITE.tagline}</p>
-            <Link to="/contact" className="btn btn-outline footer__cta">
+            <a
+              href={whatsappUrl(RESERVATION_PROMPT)}
+              className="btn btn-outline footer__cta"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               Reserve a Table
-            </Link>
+            </a>
           </div>
 
           {/* Navigation */}
@@ -53,7 +64,13 @@ const Footer = () => {
             <address className="footer__contact">
               <p>{SITE.address.formatted}</p>
               <p>
-                <a href={SITE.phoneHref}>{SITE.phone}</a>
+                <a
+                  href={SITE.whatsapp}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {SITE.phone}
+                </a>
               </p>
               <p>{SITE.hours}</p>
             </address>
@@ -63,7 +80,12 @@ const Footer = () => {
           <div className="footer__col">
             <h3 className="footer__heading">Connect</h3>
             <SocialLinks className="footer__social" />
-            <a href={SITE.menuUrl} className="footer__menu-link">
+            <a
+              href={SITE.menuUrl}
+              className="footer__menu-link"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               View Digital Menu →
             </a>
           </div>

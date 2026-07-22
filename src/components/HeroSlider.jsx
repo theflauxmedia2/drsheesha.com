@@ -15,7 +15,31 @@ const HeroSlider = ({ heroRef }) => {
   const [tintStrength, setTintStrength] = useState(1);
   const pausedRef = useRef(paused);
 
-  pausedRef.current = paused;
+  useEffect(() => {
+    pausedRef.current = paused;
+  }, [paused]);
+
+  useEffect(() => {
+    const hero = heroRef?.current;
+    if (!hero || reducedMotion) return undefined;
+
+    const update = () => {
+      const rect = hero.getBoundingClientRect();
+      const progress = Math.min(Math.max(-rect.top / rect.height, 0), 1);
+      setTintStrength(1 - progress);
+    };
+
+    update();
+
+    const lenisInstance = lenis?.current;
+    if (lenisInstance) {
+      lenisInstance.on('scroll', update);
+      return () => lenisInstance.off('scroll', update);
+    }
+
+    window.addEventListener('scroll', update, { passive: true });
+    return () => window.removeEventListener('scroll', update);
+  }, [heroRef, lenis, reducedMotion]);
 
   useEffect(() => {
     const hero = heroRef?.current;
