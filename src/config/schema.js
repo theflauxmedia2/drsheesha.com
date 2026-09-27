@@ -1,8 +1,8 @@
-import { useLocation } from 'react-router-dom';
-import { SITE } from '../config/site';
-import { absoluteImage, absoluteUrl, getPageSeo } from '../config/seo';
-import { SOCIAL_PROFILE_URLS } from '../data/socialLinks';
-import { RESERVATION_PROMPT, whatsappUrl } from '../utils/whatsapp';
+import { SITE, SOCIAL_PROFILE_URLS } from './site.js';
+import { absoluteImage, absoluteUrl, getPageSeo, normalizePath } from './seo.js';
+import { RESERVATION_PROMPT, whatsappUrl } from '../utils/whatsapp.js';
+
+const homeUrl = absoluteUrl('/');
 
 const restaurantSchema = {
   '@type': 'Restaurant',
@@ -11,13 +11,16 @@ const restaurantSchema = {
   alternateName: SITE.legalName,
   description:
     'Premium shisha lounge in Al Karama, Dubai — exotic flavours, food, drinks, events, and WhatsApp table reservations.',
-  url: SITE.url,
+  url: homeUrl,
   image: absoluteImage(SITE.defaultOgImage),
-  logo: absoluteImage('/Dr_Sheesha_Dubai_Logo.png'),
+  logo: {
+    '@type': 'ImageObject',
+    url: absoluteImage(SITE.logo),
+    width: SITE.logoWidth,
+    height: SITE.logoHeight,
+  },
   telephone: SITE.phoneHref.replace('tel:', ''),
   email: SITE.email,
-  priceRange: '$$',
-  servesCuisine: ['Middle Eastern', 'International', 'Lounge'],
   address: {
     '@type': 'PostalAddress',
     streetAddress: SITE.address.street,
@@ -31,14 +34,15 @@ const restaurantSchema = {
     longitude: SITE.geo.longitude,
   },
   hasMap: SITE.mapsUrl,
-  openingHoursSpecification: SITE.openingHoursSpecification.dayOfWeek.map(
-    (day) => ({
+  openingHoursSpecification: [
+    {
       '@type': 'OpeningHoursSpecification',
-      dayOfWeek: day,
+      dayOfWeek: SITE.openingHoursSpecification.dayOfWeek,
       opens: SITE.openingHoursSpecification.opens,
       closes: SITE.openingHoursSpecification.closes,
-    }),
-  ),
+    },
+  ],
+  acceptsReservations: true,
   sameAs: SOCIAL_PROFILE_URLS,
   hasMenu: SITE.menuUrl,
   potentialAction: {
@@ -62,44 +66,42 @@ const websiteSchema = {
   '@type': 'WebSite',
   '@id': `${SITE.url}/#website`,
   name: SITE.name,
-  url: SITE.url,
+  url: homeUrl,
   description: restaurantSchema.description,
   publisher: { '@id': `${SITE.url}/#restaurant` },
   inLanguage: SITE.language,
 };
 
-const JsonLd = () => {
-  const { pathname } = useLocation();
-  const seo = getPageSeo(pathname);
-  const pageUrl = absoluteUrl(pathname === '/' ? '/' : pathname);
+export const buildJsonLd = (pathname) => {
+  const path = normalizePath(pathname);
+  const seo = getPageSeo(path);
+  const pageUrl = absoluteUrl(path === '/' ? '/' : path);
 
-  const webPageSchema = {
-    '@type': 'WebPage',
-    '@id': `${pageUrl}#webpage`,
-    url: pageUrl,
-    name: seo.title,
-    description: seo.description,
-    isPartOf: { '@id': `${SITE.url}/#website` },
-    about: { '@id': `${SITE.url}/#restaurant` },
-    inLanguage: SITE.language,
-  };
+  const graph = [websiteSchema, restaurantSchema];
 
-  const graph = [
-    { '@context': 'https://schema.org', ...websiteSchema },
-    { '@context': 'https://schema.org', ...restaurantSchema },
-    { '@context': 'https://schema.org', ...webPageSchema },
-  ];
-
-  if (pathname !== '/') {
+  if (seo.indexable) {
     graph.push({
-      '@context': 'https://schema.org',
+      '@type': 'WebPage',
+      '@id': `${pageUrl}#webpage`,
+      url: pageUrl,
+      name: seo.title,
+      description: seo.description,
+      isPartOf: { '@id': `${SITE.url}/#website` },
+      about: { '@id': `${SITE.url}/#restaurant` },
+      inLanguage: SITE.language,
+      primaryImageOfPage: absoluteImage(SITE.defaultOgImage),
+    });
+  }
+
+  if (seo.indexable && path !== '/') {
+    graph.push({
       '@type': 'BreadcrumbList',
       itemListElement: [
         {
           '@type': 'ListItem',
           position: 1,
           name: 'Home',
-          item: SITE.url,
+          item: homeUrl,
         },
         {
           '@type': 'ListItem',
@@ -111,12 +113,8 @@ const JsonLd = () => {
     });
   }
 
-  return (
-    <script
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(graph) }}
-    />
-  );
+  return {
+    '@context': 'https://schema.org',
+    '@graph': graph,
+  };
 };
-
-export default JsonLd;

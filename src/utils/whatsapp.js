@@ -1,4 +1,4 @@
-import { SITE } from '../config/site';
+import { SITE } from '../config/site.js';
 
 export const WHATSAPP_URL = SITE.whatsapp;
 

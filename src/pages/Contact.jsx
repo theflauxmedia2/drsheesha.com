@@ -26,7 +26,7 @@ const Contact = () => {
   };
 
   return (
-    <main className="page">
+    <main className="page" id="main-content">
       <section className="section bg-charcoal">
         <div className="section-inner">
           <motion.h1
@@ -122,7 +122,7 @@ const Contact = () => {
             <motion.aside {...sectionReveal}>
               <div className="contact-info__block">
                 <div className="gold-line-icon" />
-                <h3>Find Us</h3>
+                <h2>Find Us</h2>
                 <p>
                   <a
                     href={SITE.mapsUrl}
@@ -135,7 +135,7 @@ const Contact = () => {
               </div>
               <div className="contact-info__block">
                 <div className="gold-line-icon" />
-                <h3>WhatsApp</h3>
+                <h2>WhatsApp</h2>
                 <p>
                   <a
                     href={SITE.whatsapp}
@@ -148,7 +148,7 @@ const Contact = () => {
               </div>
               <div className="contact-info__block">
                 <div className="gold-line-icon" />
-                <h3>Hours</h3>
+                <h2>Hours</h2>
                 <p>{SITE.hours}</p>
               </div>
             </motion.aside>

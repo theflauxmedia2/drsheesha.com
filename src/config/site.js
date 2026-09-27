@@ -33,7 +33,8 @@ export const SITE = {
       'Sunday',
     ],
     opens: '12:00',
-    closes: '06:00',
+    // 30:00 = 6:00 AM the next day. Google rejects a close time earlier than open.
+    closes: '30:00',
   },
   geo: {
     latitude: 25.2481,
@@ -46,17 +47,25 @@ export const SITE = {
   menuUrl:
     'https://qr.mydigimenu.com/c2764751-64d6-4175-9d56-2d3b67d239d4',
   social: {
-    instagram:
-      'https://www.instagram.com/drs.dxb?igsh=Nmx1ODc2a2UzcDdt&utm_source=qr',
+    instagram: 'https://www.instagram.com/drs.dxb',
     snapchat: 'https://snapchat.com/t/RV32za0P',
-    tiktok:
-      'https://www.tiktok.com/@storiesloungedxb?_r=1&_t=ZS-97hK2YbJ1CZ',
+    tiktok: 'https://www.tiktok.com/@storiesloungedxb',
     facebook: 'https://www.facebook.com/drs.dxb',
     whatsapp: WHATSAPP_URL,
   },
-  defaultOgImage: '/HERO/001.webp',
+  logo: '/brand/logo.webp',
+  logoWidth: 960,
+  logoHeight: 408,
+  defaultOgImage: '/og.jpg',
   twitterHandle: '@drs.dxb',
 };
+
+export const SOCIAL_PROFILE_URLS = [
+  SITE.social.instagram,
+  SITE.social.snapchat,
+  SITE.social.tiktok,
+  SITE.social.facebook,
+];
 
 export const ROUTES = [
   { path: '/', changefreq: 'weekly', priority: '1.0' },

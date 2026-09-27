@@ -47,7 +47,7 @@ const Events = () => {
   };
 
   return (
-    <main className="page">
+    <main className="page" id="main-content">
       <section className="section bg-black">
         <div className="section-inner">
           <motion.div {...sectionReveal}>
@@ -82,7 +82,7 @@ const Events = () => {
                   loading="lazy"
                 />
                 <div className="event-tile__overlay" aria-hidden="true" />
-                <h3>{event.title}</h3>
+                <h2>{event.title}</h2>
               </motion.article>
             ))}
           </motion.div>

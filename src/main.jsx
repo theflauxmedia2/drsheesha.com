@@ -1,5 +1,12 @@
-import { createRoot } from 'react-dom/client';
+import { createRoot, hydrateRoot } from 'react-dom/client';
 import './styles/global.css';
 import App from './App.jsx';
 
-createRoot(document.getElementById('root')).render(<App />);
+const rootEl = document.getElementById('root');
+const app = <App />;
+
+if (rootEl?.childElementCount) {
+  hydrateRoot(rootEl, app);
+} else {
+  createRoot(rootEl).render(app);
+}

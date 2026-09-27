@@ -1,7 +1,4 @@
-import { SITE } from './site';
-
-const defaultDescription =
-  'Dr. Sheesha — premium shisha lounge in Al Karama, Dubai. Reserve via WhatsApp. Open daily 12 PM – 6 AM.';
+import { SITE } from './site.js';
 
 /** Per-route SEO metadata */
 export const PAGE_SEO = {
@@ -47,13 +44,30 @@ export const PAGE_SEO = {
   },
 };
 
-export const getPageSeo = (pathname) =>
-  PAGE_SEO[pathname] ?? {
-    title: `${SITE.name} Dubai | Premium Shisha Lounge`,
-    description: defaultDescription,
-    keywords: 'shisha lounge Dubai, Dr Sheesha, Al Karama hookah',
-    breadcrumb: 'Page',
+const INDEXABLE_ROBOTS = 'index, follow, max-image-preview:large';
+
+export const normalizePath = (pathname = '/') => {
+  if (!pathname || pathname === '/') return '/';
+  const clean = pathname.split('?')[0].split('#')[0].replace(/\/+$/, '');
+  return clean || '/';
+};
+
+export const getPageSeo = (pathname) => {
+  const path = normalizePath(pathname);
+  const page = PAGE_SEO[path];
+  if (page) {
+    return { ...page, robots: INDEXABLE_ROBOTS, indexable: true };
+  }
+  return {
+    title: `Page not found | ${SITE.name} Dubai`,
+    description:
+      'This page does not exist. Visit Dr. Sheesha, the premium shisha lounge in Al Karama, Dubai, or reserve a table via WhatsApp.',
+    keywords: '',
+    breadcrumb: 'Not found',
+    robots: 'noindex, follow',
+    indexable: false,
   };
+};
 
 export const absoluteUrl = (path = '') =>
   `${SITE.url}${path.startsWith('/') ? path : `/${path}`}`;

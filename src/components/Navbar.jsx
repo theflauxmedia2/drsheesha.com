@@ -63,12 +63,13 @@ const Navbar = () => {
       <header className={`navbar ${scrolled ? 'navbar--scrolled' : ''}`}>
         <div className="navbar__inner">
           <Link to="/" className="navbar__logo" onClick={closeDrawer}>
-            <img
-              src="/Dr_Sheesha_Dubai_Logo.png"
-              alt="Dr. Sheesha Dubai"
-              width="120"
-              height="48"
-            />
+              <img
+                src="/brand/logo.webp"
+                alt="Dr. Sheesha Dubai"
+                width="960"
+                height="408"
+                decoding="async"
+              />
           </Link>
 
           <ul className="navbar__links">

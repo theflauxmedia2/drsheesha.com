@@ -1,11 +1,14 @@
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { SITE } from '../config/site';
-import { absoluteImage, absoluteUrl, getPageSeo } from '../config/seo';
+import { getDocumentMeta } from '../config/documentHead';
 
 const setMeta = (key, value, attr = 'name') => {
-  if (!value) return;
   let el = document.querySelector(`meta[${attr}="${key}"]`);
+  if (!value) {
+    el?.remove();
+    return;
+  }
   if (!el) {
     el = document.createElement('meta');
     el.setAttribute(attr, key);
@@ -15,8 +18,11 @@ const setMeta = (key, value, attr = 'name') => {
 };
 
 const setLink = (rel, href) => {
-  if (!href) return;
   let el = document.querySelector(`link[rel="${rel}"]`);
+  if (!href) {
+    el?.remove();
+    return;
+  }
   if (!el) {
     el = document.createElement('link');
     el.setAttribute('rel', rel);
@@ -25,52 +31,78 @@ const setLink = (rel, href) => {
   el.setAttribute('href', href);
 };
 
+const setJsonLd = (data) => {
+  let el = document.getElementById('ldjson');
+  if (!el) {
+    el = document.createElement('script');
+    el.id = 'ldjson';
+    el.type = 'application/ld+json';
+    document.head.appendChild(el);
+  }
+  el.textContent = JSON.stringify(data);
+};
+
+const setHeroPreload = (enabled) => {
+  const selector = 'link[rel="preload"][as="image"]';
+  const existing = document.head.querySelector(selector);
+  if (!enabled) {
+    existing?.remove();
+    return;
+  }
+  if (existing) return;
+  const link = document.createElement('link');
+  link.rel = 'preload';
+  link.as = 'image';
+  link.href = '/HERO/001.webp';
+  link.setAttribute('fetchpriority', 'high');
+  document.head.appendChild(link);
+};
+
 /**
- * Updates document head per route — titles, meta, Open Graph, Twitter, canonical.
+ * Keeps the document head in sync after client-side navigation.
+ * The production build also stamps this head into each route's HTML.
  */
 const SEO = () => {
   const { pathname } = useLocation();
-  const seo = getPageSeo(pathname);
-  const canonical = absoluteUrl(pathname === '/' ? '/' : pathname);
-  const ogImage = absoluteImage(SITE.defaultOgImage);
-  const title = seo.title;
-  const description = seo.description;
 
   useEffect(() => {
-    document.title = title;
+    const meta = getDocumentMeta(pathname);
+    document.title = meta.title;
     document.documentElement.lang = SITE.language;
 
-    setMeta('description', description);
-    setMeta('keywords', seo.keywords);
+    setMeta('description', meta.description);
+    setMeta('keywords', meta.seo.keywords);
     setMeta('author', SITE.legalName);
-    setMeta('robots', 'index, follow, max-image-preview:large');
-    setMeta('googlebot', 'index, follow');
-    setMeta('theme-color', '#050505');
-
-    setLink('canonical', canonical);
+    setMeta('robots', meta.robots);
+    setMeta('googlebot', meta.robots);
+    setLink('canonical', meta.seo.indexable ? meta.canonical : '');
 
     setMeta('og:type', 'website', 'property');
     setMeta('og:site_name', SITE.name, 'property');
-    setMeta('og:title', title, 'property');
-    setMeta('og:description', description, 'property');
-    setMeta('og:url', canonical, 'property');
-    setMeta('og:image', ogImage, 'property');
+    setMeta('og:title', meta.title, 'property');
+    setMeta('og:description', meta.description, 'property');
+    setMeta('og:url', meta.seo.indexable ? meta.canonical : '', 'property');
+    setMeta('og:image', meta.image, 'property');
+    setMeta('og:image:type', 'image/jpeg', 'property');
     setMeta('og:image:width', '1200', 'property');
     setMeta('og:image:height', '630', 'property');
-    setMeta('og:image:alt', `${SITE.name} — premium shisha lounge in Al Karama, Dubai`, 'property');
+    setMeta('og:image:alt', meta.imageAlt, 'property');
     setMeta('og:locale', SITE.locale, 'property');
 
     setMeta('twitter:card', 'summary_large_image');
     setMeta('twitter:site', SITE.twitterHandle);
-    setMeta('twitter:title', title);
-    setMeta('twitter:description', description);
-    setMeta('twitter:image', ogImage);
-    setMeta('twitter:image:alt', `${SITE.name} — premium shisha lounge in Al Karama, Dubai`);
+    setMeta('twitter:title', meta.title);
+    setMeta('twitter:description', meta.description);
+    setMeta('twitter:image', meta.image);
+    setMeta('twitter:image:alt', meta.imageAlt);
 
     setMeta('geo.region', 'AE-DU');
     setMeta('geo.placename', 'Dubai');
     setMeta('ICBM', `${SITE.geo.latitude}, ${SITE.geo.longitude}`);
-  }, [title, description, seo.keywords, canonical, ogImage]);
+
+    setJsonLd(meta.jsonLd);
+    setHeroPreload(meta.path === '/');
+  }, [pathname]);
 
   return null;
 };

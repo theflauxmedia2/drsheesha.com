@@ -7,13 +7,13 @@ import SmoothScroll from './components/SmoothScroll';
 import ScrollProgress from './components/ScrollProgress';
 import ScrollToTop from './components/ScrollToTop';
 import SEO from './components/SEO';
-import JsonLd from './components/JsonLd';
 import Home from './pages/Home';
 import About from './pages/About';
 import MenuRedirect from './components/MenuRedirect';
 import Events from './pages/Events';
 import Gallery from './pages/Gallery';
 import Contact from './pages/Contact';
+import NotFound from './pages/NotFound';
 
 const AnimatedRoutes = () => {
   const location = useLocation();
@@ -62,24 +62,35 @@ const AnimatedRoutes = () => {
             </PageTransition>
           }
         />
+        <Route
+          path="*"
+          element={
+            <PageTransition>
+              <NotFound />
+            </PageTransition>
+          }
+        />
       </Routes>
     </AnimatePresence>
   );
 };
 
+export const AppShell = () => (
+  <SmoothScroll>
+    <div className="app-shell">
+      <SEO />
+      <ScrollToTop />
+      <ScrollProgress />
+      <Navbar />
+      <AnimatedRoutes />
+      <Footer />
+    </div>
+  </SmoothScroll>
+);
+
 const App = () => (
   <BrowserRouter>
-    <SmoothScroll>
-      <div className="app-shell">
-        <SEO />
-        <JsonLd />
-        <ScrollToTop />
-        <ScrollProgress />
-        <Navbar />
-        <AnimatedRoutes />
-        <Footer />
-      </div>
-    </SmoothScroll>
+    <AppShell />
   </BrowserRouter>
 );
 

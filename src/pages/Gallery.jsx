@@ -30,7 +30,7 @@ const Gallery = () => {
   const totalCount = ALL_GALLERY_PHOTOS.length;
 
   return (
-    <main className="page">
+    <main className="page" id="main-content">
       <section className="section bg-charcoal gallery-section">
         <div className="section-inner">
           <motion.div className="section-centered" {...sectionReveal}>

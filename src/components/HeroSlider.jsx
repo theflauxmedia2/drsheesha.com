@@ -41,28 +41,6 @@ const HeroSlider = ({ heroRef }) => {
     return () => window.removeEventListener('scroll', update);
   }, [heroRef, lenis, reducedMotion]);
 
-  useEffect(() => {
-    const hero = heroRef?.current;
-    if (!hero || reducedMotion) return undefined;
-
-    const update = () => {
-      const rect = hero.getBoundingClientRect();
-      const progress = Math.min(Math.max(-rect.top / rect.height, 0), 1);
-      setTintStrength(1 - progress);
-    };
-
-    update();
-
-    const lenisInstance = lenis?.current;
-    if (lenisInstance) {
-      lenisInstance.on('scroll', update);
-      return () => lenisInstance.off('scroll', update);
-    }
-
-    window.addEventListener('scroll', update, { passive: true });
-    return () => window.removeEventListener('scroll', update);
-  }, [heroRef, lenis, reducedMotion]);
-
   const goTo = (index) => {
     setCurrent((index + HERO_SLIDES.length) % HERO_SLIDES.length);
   };
@@ -89,15 +67,16 @@ const HeroSlider = ({ heroRef }) => {
   return (
     <div
       className="hero-slider"
-      aria-hidden="true"
       style={{ '--hero-interval': `${INTERVAL_SEC}s` }}
     >
-      <div className="hero-slider__stage">
+      <div className="hero-slider__stage" aria-hidden="true">
         <img
           key={slide.id}
           src={slide.src}
           alt=""
           className="hero-slider__img"
+          width="1920"
+          height="1280"
           fetchPriority="high"
           decoding="async"
         />
@@ -105,6 +84,7 @@ const HeroSlider = ({ heroRef }) => {
 
       <div
         className="hero-slider__overlays"
+        aria-hidden="true"
         style={{ opacity: tintStrength }}
       >
         <div className="hero-slider__tint" />

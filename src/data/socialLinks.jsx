@@ -54,7 +54,3 @@ export const SOCIAL_ITEMS = [
     ),
   },
 ];
-
-export const SOCIAL_PROFILE_URLS = SOCIAL_ITEMS.filter(
-  ({ key }) => key !== 'whatsapp',
-).map(({ href }) => href);

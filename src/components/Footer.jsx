@@ -30,10 +30,11 @@ const Footer = () => {
           <div className="footer__brand">
             <Link to="/" className="footer__logo">
               <img
-                src="/Dr_Sheesha_Dubai_Logo.png"
+                src="/brand/logo.webp"
                 alt="Dr. Sheesha Dubai"
-                width="120"
-                height="48"
+                width="960"
+                height="408"
+                decoding="async"
               />
             </Link>
             <p className="footer__tagline">Where every session tells a story.</p>

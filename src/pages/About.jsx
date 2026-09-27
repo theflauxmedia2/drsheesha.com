@@ -27,7 +27,7 @@ const SPACE_IMAGES = [2, 8, 15, 22].map((n) => ({
 }));
 
 const About = () => (
-  <main className="page">
+  <main className="page" id="main-content">
     {/* Our Story */}
     <section className="section bg-black">
       <div className="section-inner">

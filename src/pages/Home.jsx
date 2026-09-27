@@ -37,7 +37,7 @@ const Home = () => {
   const galleryInView = useInView(galleryRef, { once: true, margin: '-60px' });
 
   return (
-  <main className="page page--home">
+  <main className="page page--home" id="main-content">
     {/* Hero — no top padding; full viewport */}
     <section ref={heroRef} className="hero">
       <HeroSlider heroRef={heroRef} />
@@ -111,7 +111,7 @@ const Home = () => {
               variants={staggerChild}
             >
               <div className="gold-line-icon" />
-              <h3>{pillar.title}</h3>
+              <h2>{pillar.title}</h2>
               <p>{pillar.text}</p>
             </motion.article>
           ))}
