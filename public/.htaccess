@@ -1,0 +1,53 @@
+# Apache config for shared hosting (Hostinger public_html) — mirrors vercel.json
+
+Options -Indexes
+DirectoryIndex index.html
+# Serve /about from about/index.html without redirecting to /about/
+DirectorySlash Off
+
+ErrorDocument 404 /404.html
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # Force HTTPS and the apex domain (www → drsheesha.com)
+  RewriteCond %{HTTPS} off [OR]
+  RewriteCond %{HTTP_HOST} ^www\. [NC]
+  RewriteRule ^ https://drsheesha.com%{REQUEST_URI} [R=301,L]
+
+  # Digital menu
+  RewriteRule ^menu/?$ https://qr.mydigimenu.com/c2764751-64d6-4175-9d56-2d3b67d239d4 [R=302,L]
+
+  # Drop trailing slashes (trailingSlash: false)
+  RewriteCond %{REQUEST_URI} !^/$
+  RewriteRule ^(.+)/$ https://drsheesha.com/$1 [R=301,L]
+
+  # Prerendered routes: /about → /about/index.html
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteCond %{REQUEST_FILENAME}/index.html -f
+  RewriteRule ^(.+)$ $1/index.html [L]
+</IfModule>
+
+<IfModule mod_headers.c>
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set X-Frame-Options "SAMEORIGIN"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
+  Header always set Permissions-Policy "camera=(), microphone=(), geolocation=()"
+
+  <If "%{REQUEST_URI} =~ m#^/(assets|photos|HERO|brand)/#">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </If>
+  <FilesMatch "\.html$">
+    Header set Cache-Control "no-cache"
+  </FilesMatch>
+</IfModule>
+
+<IfModule mod_mime.c>
+  AddType application/manifest+json .webmanifest
+  AddType image/webp .webp
+</IfModule>
+
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css text/plain text/xml application/javascript application/json application/xml image/svg+xml
+</IfModule>

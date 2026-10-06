@@ -6,6 +6,7 @@ import PageTransition from './components/PageTransition';
 import SmoothScroll from './components/SmoothScroll';
 import ScrollProgress from './components/ScrollProgress';
 import ScrollToTop from './components/ScrollToTop';
+import RouteTracker from './components/RouteTracker';
 import SEO from './components/SEO';
 import Home from './pages/Home';
 import About from './pages/About';
@@ -80,6 +81,7 @@ export const AppShell = () => (
     <div className="app-shell">
       <SEO />
       <ScrollToTop />
+      <RouteTracker />
       <ScrollProgress />
       <Navbar />
       <AnimatedRoutes />

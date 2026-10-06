@@ -39,6 +39,6 @@ Tracked by Flaux HQ. Rules:
 ## Launch & infra
 - [ ] Attach drsheesha.com on Vercel so SSL and the www → apex redirect in vercel.json are live #high
 - [ ] Add a Google Search Console verification tag and submit https://drsheesha.com/sitemap.xml after the domain resolves #high
-- [ ] Install GA4 or another analytics tag; none is present in index.html or src #medium
+- [x] Install GA4 or another analytics tag; none is present in index.html or src #medium
 - [ ] Replace README.md (still the Vite starter) with deploy and content notes for this site #low
 - [ ] Add uptime checks for https://drsheesha.com once the domain is attached #low
