@@ -20,7 +20,7 @@ export const getDocumentMeta = (pathname) => {
     title: seo.title,
     description: seo.description,
     image: absoluteImage(SITE.defaultOgImage),
-    imageAlt: `${SITE.name} — premium shisha lounge in Al Karama, Dubai`,
+    imageAlt: `${SITE.name} — shisha lounge and restaurant in Al Karama, Dubai`,
     robots: seo.robots,
     jsonLd: buildJsonLd(path),
   };

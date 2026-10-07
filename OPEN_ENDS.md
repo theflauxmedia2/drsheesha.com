@@ -12,9 +12,10 @@ Tracked by Flaux HQ. Rules:
 
 ## Bugs
 ## SEO
-- [ ] Lengthen titles in src/config/seo.js: /about is 29 chars, /events 45, /gallery 27, /contact 35; target 50–60 #medium
-- [ ] Lengthen meta descriptions in src/config/seo.js: /about is 130 chars, /events 125, /gallery 113, /contact 121; target 140–160 #medium
-- [ ] Replace the repeated alt in src/data/galleryPhotos.js buildPhoto ("{category} at Dr. Sheesha shisha lounge, Al Karama Dubai") with a distinct description per photo #medium
+- [x] Lengthen titles in src/config/seo.js: /about is 29 chars, /events 45, /gallery 27, /contact 35; target 50–60 #medium
+- [x] Lengthen meta descriptions in src/config/seo.js: /about is 130 chars, /events 125, /gallery 113, /contact 121; target 140–160 #medium
+- [ ] Gallery alt text now rotates 4–5 descriptions per category (src/data/galleryPhotos.js CATEGORY_ALTS); still write a true per-photo description for the 239 photos (e.g. name the dish or drink shown) #low
+- [ ] Claim/verify the Google Business Profile, add its URL to sameAs and mapsUrl; the "near me" keywords (shisha lounge near me, restaurant near me al karama, etc.) rank through GBP, not on-page copy #high
 - [ ] Rename numeric files in public/HERO and public/photos (001.webp and similar) to descriptive names and update the src references #low
 ## Client inputs needed
 - [ ] Confirm final NAP: 112 Za'abeel St, Al Karama, Dubai; +971 56 671 1730; info@drsheesha.com in src/config/site.js #high
@@ -28,7 +29,8 @@ Tracked by Flaux HQ. Rules:
 - [ ] Add /privacy and /terms routes and footer links once the client supplies the legal copy #medium
 - [ ] Open the Menu item in a new tab; src/config/navigation.js sets sameTab, so the digital menu replaces the site #low
 ## Content
-- [ ] Expand copy past ~300 words on ranking pages: Home.jsx is about 204 words, About.jsx about 131, Events.jsx about 116 #medium
+- [x] Expand copy past ~300 words on ranking pages: Home.jsx is about 204 words, About.jsx about 131, Events.jsx about 116 #medium
+- [ ] Client to review new keyword copy (menu highlights from the digital menu, FAQ, About, Events occasions, Contact intro) for accuracy #medium
 - [ ] Align Happy Hour (11 AM–7 PM) in src/pages/Home.jsx HIGHLIGHTS and public/llms.txt with the 12:00 PM opening in src/config/site.js #high
 ## Performance & accessibility
 - [ ] Set width and height on content images in src/pages/Home.jsx, src/pages/About.jsx, src/pages/Events.jsx, and src/components/GalleryTile.jsx #medium

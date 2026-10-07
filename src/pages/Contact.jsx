@@ -29,13 +29,21 @@ const Contact = () => {
     <main className="page" id="main-content">
       <section className="section bg-charcoal">
         <div className="section-inner">
-          <motion.h1
-            className="h1"
-            style={{ fontSize: 'clamp(2rem, 5vw, 3rem)', marginBottom: '2.5rem' }}
-            {...sectionReveal}
-          >
-            Reserve Your Table
-          </motion.h1>
+          <motion.div {...sectionReveal} style={{ marginBottom: '2.5rem' }}>
+            <h1
+              className="h1"
+              style={{ fontSize: 'clamp(2rem, 5vw, 3rem)', marginBottom: '1.25rem' }}
+            >
+              Reserve a Table at Dr. Sheesha, Al Karama
+            </h1>
+            <p style={{ maxWidth: '680px', color: 'var(--smoke-dim)' }}>
+              Restaurant table booking in Al Karama takes seconds at Dr. Sheesha:
+              fill in the form and your request opens straight in WhatsApp.
+              Whether it&apos;s a lunch table, a dinner reservation for two or a
+              shisha lounge table booking in Dubai for the whole group, we&apos;ll
+              confirm it quickly — every day, from 12 PM to 6 AM.
+            </p>
+          </motion.div>
 
           <div className="contact-layout">
             <motion.div {...sectionReveal}>
@@ -150,6 +158,11 @@ const Contact = () => {
                 <div className="gold-line-icon" />
                 <h2>Hours</h2>
                 <p>{SITE.hours}</p>
+                <p style={{ marginTop: '0.5rem' }}>
+                  Dine-in lunch, dinner and late-night food until 6 AM — a late
+                  night restaurant in Al Karama and a lounge open late in Dubai
+                  for when the night is still going.
+                </p>
               </div>
             </motion.aside>
           </div>

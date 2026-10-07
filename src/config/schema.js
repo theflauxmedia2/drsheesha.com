@@ -1,6 +1,7 @@
 import { SITE, SOCIAL_PROFILE_URLS } from './site.js';
 import { absoluteImage, absoluteUrl, getPageSeo, normalizePath } from './seo.js';
 import { RESERVATION_PROMPT, whatsappUrl } from '../utils/whatsapp.js';
+import { HOME_FAQS } from '../data/faqs.js';
 
 const homeUrl = absoluteUrl('/');
 
@@ -10,8 +11,14 @@ const restaurantSchema = {
   name: SITE.name,
   alternateName: SITE.legalName,
   description:
-    'Premium shisha lounge in Al Karama, Dubai — exotic flavours, food, drinks, events, and WhatsApp table reservations.',
+    'Shisha lounge and restaurant in Al Karama, Dubai — 40+ sheesha flavours, tandoori, biryani, Asian and Italian dishes, mocktails and late-night dining until 6 AM, with WhatsApp table reservations.',
   url: homeUrl,
+  servesCuisine: ['Indian', 'Asian', 'Italian', 'Middle Eastern'],
+  amenityFeature: [
+    { '@type': 'LocationFeatureSpecification', name: 'Shisha', value: true },
+    { '@type': 'LocationFeatureSpecification', name: 'Dine-in', value: true },
+    { '@type': 'LocationFeatureSpecification', name: 'Board games', value: true },
+  ],
   image: absoluteImage(SITE.defaultOgImage),
   logo: {
     '@type': 'ImageObject',
@@ -90,6 +97,18 @@ export const buildJsonLd = (pathname) => {
       about: { '@id': `${SITE.url}/#restaurant` },
       inLanguage: SITE.language,
       primaryImageOfPage: absoluteImage(SITE.defaultOgImage),
+    });
+  }
+
+  if (path === '/') {
+    graph.push({
+      '@type': 'FAQPage',
+      '@id': `${pageUrl}#faq`,
+      mainEntity: HOME_FAQS.map((faq) => ({
+        '@type': 'Question',
+        name: faq.question,
+        acceptedAnswer: { '@type': 'Answer', text: faq.answer },
+      })),
     });
   }
 
