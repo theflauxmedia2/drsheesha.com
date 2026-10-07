@@ -35,8 +35,13 @@ const Gallery = () => {
         <div className="section-inner">
           <motion.div className="section-centered" {...sectionReveal}>
             <h1 className="h1" style={{ fontSize: 'clamp(2rem, 5vw, 3rem)' }}>
-              Moments at Dr. Sheesha
+              Inside Dr. Sheesha, Al Karama
             </h1>
+            <p className="section-lede">
+              Weighing up shisha places in Dubai? Take a look around first —
+              the lounge, our signature sheesha, the food and drinks we serve in
+              Al Karama, and the late nights in between.
+            </p>
             <p
               style={{
                 marginTop: '1rem',
@@ -44,7 +49,7 @@ const Gallery = () => {
                 fontSize: '0.95rem',
               }}
             >
-              {totalCount} photographs across ambience, shisha, drinks, and food.
+              {totalCount} photographs across ambience, sheesha, drinks and food.
             </p>
             <div className="gold-divider" />
           </motion.div>

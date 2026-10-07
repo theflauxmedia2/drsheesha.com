@@ -27,13 +27,46 @@ const pad = (n) => String(n).padStart(3, '0');
 export const photoSrc = (category, index) =>
   `/photos/${category}/${pad(index)}.webp`;
 
-export const buildPhoto = (category, index) => ({
-  id: `${category}-${index}`,
-  src: photoSrc(category, index),
-  category,
-  label: CATEGORY_LABELS[category],
-  alt: `${CATEGORY_LABELS[category]} at Dr. Sheesha shisha lounge, Al Karama Dubai`,
-});
+/** Rotating alt descriptions per category so tiles don't share one string */
+const CATEGORY_ALTS = {
+  AMBIANCE: [
+    'Lounge seating at Dr. Sheesha, Al Karama, Dubai',
+    'Evening ambience at Dr. Sheesha shisha lounge in Dubai',
+    'Interior of the Dr. Sheesha shisha cafe in Al Karama',
+    'Dining lounge tables at Dr. Sheesha, Dubai',
+    'Late-night lounge atmosphere at Dr. Sheesha, Al Karama',
+  ],
+  SHEESHA: [
+    'Premium sheesha served at Dr. Sheesha, Al Karama',
+    'Fresh sheesha at Dr. Sheesha shisha lounge, Dubai',
+    'Signature sheesha flavour at Dr. Sheesha, Dubai',
+    'Sheesha prepared by the Dr. Sheesha team in Al Karama',
+  ],
+  DRINKS: [
+    'Mocktail served at Dr. Sheesha, Al Karama',
+    'Specialty drink at the Dr. Sheesha shisha cafe, Dubai',
+    'Chilled drink at Dr. Sheesha lounge, Al Karama',
+    'Drinks to pair with sheesha at Dr. Sheesha, Dubai',
+  ],
+  FOODS: [
+    'Dish from the Dr. Sheesha menu, Al Karama',
+    'Food and shisha at Dr. Sheesha restaurant, Dubai',
+    'Dinner plate at Dr. Sheesha dining lounge, Al Karama',
+    'Sharing plate at Dr. Sheesha, Dubai',
+    'Late-night food at Dr. Sheesha, Al Karama',
+  ],
+};
+
+export const buildPhoto = (category, index) => {
+  const alts = CATEGORY_ALTS[category];
+  return {
+    id: `${category}-${index}`,
+    src: photoSrc(category, index),
+    category,
+    label: CATEGORY_LABELS[category],
+    alt: alts[(index - 1) % alts.length],
+  };
+};
 
 export const buildCategoryPhotos = (category) =>
   Array.from({ length: CATEGORY_COUNTS[category] }, (_, i) =>

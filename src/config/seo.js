@@ -3,43 +3,43 @@ import { SITE } from './site.js';
 /** Per-route SEO metadata */
 export const PAGE_SEO = {
   '/': {
-    title: 'Dr. Sheesha Dubai | Premium Shisha Lounge in Al Karama',
+    title: 'Dr. Sheesha | Shisha Lounge & Restaurant in Al Karama, Dubai',
     description:
-      'Dr. Sheesha — premium shisha lounge in Al Karama, Dubai. Exotic flavours, food, drinks & table reservations via WhatsApp. Open daily 12 PM – 6 AM.',
+      'Dr. Sheesha is a shisha lounge and restaurant in Al Karama, Dubai — 40+ sheesha flavours, tandoori, biryani and late-night dining. Open daily till 6 AM.',
     keywords:
-      'shisha lounge Dubai, hookah bar Al Karama, Dr Sheesha, premium shisha Dubai, shisha restaurant UAE, ladies night Dubai',
+      'dr sheesha dubai, dr sheesha al karama, dr sheesha karama, dr sheesha restaurant dubai, dr sheesha lounge dubai, dr sheesha cafe dubai, dr sheesha menu dubai, shisha lounge al karama, shisha lounge karama dubai, shisha lounge dubai, sheesha lounge dubai, shisha cafe al karama, shisha restaurant al karama, shisha with food dubai, dinner and shisha dubai, restaurants in al karama dubai, late night lounge al karama',
     breadcrumb: 'Home',
   },
   '/about': {
-    title: 'Our Story | Dr. Sheesha Dubai',
+    title: 'About Dr. Sheesha | Dining Lounge & Hangout in Al Karama',
     description:
-      'Discover Dr. Sheesha — a premium shisha lounge in Al Karama, Dubai blending traditional craftsmanship with modern lounge ambience.',
+      'Dr. Sheesha is a shisha cafe and dining lounge in Al Karama, Dubai, made for friends and groups — casual dining, board games, mocktails and sheesha till 6 AM.',
     keywords:
-      'about Dr Sheesha, shisha lounge story Dubai, premium hookah Al Karama',
+      'places to eat in al karama, hangout places in al karama, places to chill in al karama, friends hangout in al karama, group hangout in al karama, casual dining al karama, group dining al karama, lounge for friends in dubai, shisha lounge for friends dubai, shisha cafe for groups dubai, cafe and lounge dubai, lounge restaurant dubai, dining lounge dubai',
     breadcrumb: 'About',
   },
   '/events': {
-    title: 'Events & Private Bookings | Dr. Sheesha Dubai',
+    title: 'Birthdays, Date Nights & Group Dinners | Dr. Sheesha Karama',
     description:
-      'Host birthdays, ladies night, corporate evenings & private events at Dr. Sheesha — premium shisha lounge in Al Karama, Dubai.',
+      'Celebrate birthdays, date nights, group dinners and weekend nights out at Dr. Sheesha, a shisha lounge in Al Karama, Dubai. Book your table via WhatsApp.',
     keywords:
-      'shisha lounge events Dubai, private lounge events Al Karama, ladies night Dubai, birthday lounge Dubai',
+      'birthday dinner al karama, birthday celebration lounge dubai, shisha lounge for birthdays dubai, date night lounge dubai, dinner date al karama, shisha lounge for date night dubai, group dinner dubai, shisha lounge for groups dubai, celebration dinner al karama, night out in al karama, night out with friends dubai, weekend night out al karama, weekend hangout dubai, late night hangout dubai, group table booking dubai',
     breadcrumb: 'Events',
   },
   '/gallery': {
-    title: 'Gallery | Dr. Sheesha Dubai',
+    title: 'Photos of Dr. Sheesha | Shisha, Food & Drinks in Al Karama',
     description:
-      'Browse photos of Dr. Sheesha — lounge ambience, premium shisha, cocktails, food & nights out in Al Karama, Dubai.',
+      'See inside Dr. Sheesha, a shisha cafe in Al Karama, Dubai — the lounge, signature sheesha, tandoori and Indian dishes, mojitos, shakes and late nights.',
     keywords:
-      'Dr Sheesha photos, shisha lounge gallery Dubai, hookah lounge images Al Karama',
+      'dr sheesha photos, shisha cafe dubai, sheesha cafe dubai, food and drinks al karama, dinner lounge al karama, shisha places in dubai, sheesha places in dubai, food and shisha dubai',
     breadcrumb: 'Gallery',
   },
   '/contact': {
-    title: 'Reserve a Table | Dr. Sheesha Dubai',
+    title: 'Reserve a Table at Dr. Sheesha | Al Karama, Dubai Booking',
     description:
-      'Book your table at Dr. Sheesha via WhatsApp +971 56 671 1730. 112 Za\'abeel St, Al Karama, Dubai. Open daily 12 PM – 6 AM.',
+      'Book a table at Dr. Sheesha, Al Karama — WhatsApp +971 56 671 1730. Lunch, dinner and late-night shisha reservations every day, 12 PM to 6 AM.',
     keywords:
-      'reserve shisha lounge Dubai, Dr Sheesha booking WhatsApp, Al Karama shisha contact',
+      'dr sheesha table booking, dr sheesha reservations dubai, reserve a table al karama, restaurant reservation al karama, restaurant table booking al karama, dinner reservation al karama, lounge reservation dubai, book a shisha lounge dubai, shisha lounge table booking dubai, late night restaurant al karama, late night dining dubai, restaurant open late al karama',
     breadcrumb: 'Contact',
   },
 };
